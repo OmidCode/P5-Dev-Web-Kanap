@@ -1,25 +1,41 @@
-// On récupère les produits de l'api
-fetch("http://localhost:3000/api/products")
-  .then((res) => res.json())
-  .then((productsObject) => {
-    console.table(productsObject);
-    showProducts(productsObject);
+let url = "http://localhost:3000/api/products";
+
+// on récupuère les produits de l'api
+fetch(url)
+  .then(function (res) {
+    if (res.ok) {
+      return res.json();
+    }
+  })
+  .then(function (products) {
+    mainFunction(products);
   })
   .catch(function (err) {
-    document.getElementById("items").innerHTML =
-      "Nous n'avons pas réussi à afficher nos produits. Verifiez si le serveur local (Port 3000) est bien ouvert.";
+    console.log(err, "erreur");
   });
 
-// on affiche les produits de l'api sur la page d'accueil grace à notre fonction
-function showProducts(index) {
-  let spaceProduct = document.getElementById("items");
-  for (let product of index) {
-    spaceProduct.innerHTML += `<a href="./product.html?_id=${product._id}">
-    <article>
-      <img src="${product.imageUrl}" alt="${product.altTxt}">
-      <h3 class="productName">${product.name}</h3>
-      <p class="productDescription">${product.description}</p>
-    </article>
-  </a>`;
+// on affiche les produits de l'api sur la page d'accueil grace à notre fonction + on crée une boucle pour que tout les produits soit affiché
+let mainFunction = (products) => {
+  const sectionElt = document.getElementById("items");
+  for (let product of products) {
+    let linkElt = document.createElement("a");
+    linkElt.href = "./product.html?productId=" + product._id;
+    sectionElt.appendChild(linkElt);
+
+    let articleElt = document.createElement("article");
+    linkElt.appendChild(articleElt);
+
+    let imageElt = document.createElement("img");
+    imageElt.src = product.imageUrl;
+    imageElt.alt = product.altText;
+    articleElt.appendChild(imageElt);
+
+    let h3Elt = document.createElement("h3");
+    h3Elt.innerHTML = product.name;
+    articleElt.appendChild(h3Elt);
+
+    let pElt = document.createElement("p");
+    pElt.innerHTML = product.description;
+    articleElt.appendChild(pElt);
   }
-}
+};
