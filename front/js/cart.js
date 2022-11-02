@@ -115,9 +115,7 @@ function changedQuantity(kanap) {
         changedQuantity <= 0 ||
         changedQuantity != parseInt(changedQuantity)
       ) {
-        alert(
-          "Merci de bien vouloir sélectionner une quantité comprise entre 1 et 100."
-        );
+        alert("Veuillez sélectionner une quantité comprise entre 1 et 100.");
         return changedQuantity == undefined;
       }
       localStorage.setItem("listOfProduct", JSON.stringify(tableauKanap));

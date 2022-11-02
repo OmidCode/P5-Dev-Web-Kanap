@@ -53,16 +53,14 @@ let addToCart2 = (product) => {
     };
     //Ajout de conditions avant d'ajouter le produit au panier (quantité max, min)
     if (kanap.color == 0) {
-      alert("Merci de sélectionner une teinte.");
+      alert("Veuillez sélectionner une couleur.");
       return kanap == undefined;
     } else if (
       kanap.quantity > 100 ||
       kanap.quantity <= 0 ||
       kanap.quantity != parseInt(kanap.quantity)
     ) {
-      alert(
-        "Merci de bien vouloir sélectionner une quantité comprise entre 1 et 100."
-      );
+      alert("Veuillez sélectionner une quantité comprise entre 1 et 100.");
       return kanap == undefined;
     }
     if (localStorage.getItem("listOfProduct")) {
